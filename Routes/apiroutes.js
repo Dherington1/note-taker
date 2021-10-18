@@ -34,28 +34,27 @@ router.get("/notes", (req, res) => {
 
 router.delete('/notes/:id', (req, res) => {
 
-  // const notes = JSON.parse(fs.readFileSync(path.join(__dirname, "../db/db.json"), "utf-8"));
-  
+
   // read db.json, filter and write db.json
   const { id } = req.params;
-  let doNotDel;
+  let savedNotes;
   fs.readFile("./db/db.json", "utf8", (err, data) => {
-      const oldData = JSON.parse(data);
-      // oldData = oldData.filter(note => note.id !== req.params.id);
+      const oldNotes = JSON.parse(data);
+
       if (err) {
           res.status(500).send(err);
       }
-      doNotDel = oldData.filter((note) => {
+
+      savedNotes = oldNotes.filter((note) => {
           return note.id !== id;
       });
-      console.log(oldData);
-      fs.writeFile("./db/db.json", JSON.stringify(doNotDel), (err) => {
+      
+      fs.writeFile("./db/db.json", JSON.stringify(savedNotes), (err) => {
           if (err) {
               res.status(500).send(err);
           }
       });
-      res.send(doNotDel)
-      // res.json("Success!");
+      res.send(savedNotes)
   });  
 })
 
