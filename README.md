@@ -1,4 +1,4 @@
-# note-taker
+# Note-taker
   
   ![mit](https://img.shields.io/badge/license-MIT%20License-red)
       
